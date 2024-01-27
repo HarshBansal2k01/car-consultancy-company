@@ -1,7 +1,10 @@
 import React from "react";
 import BodyContent from "./BodyContent";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Navbar() {
+  const { user, loginWithRedirect, isAuthenticated, logout } = useAuth0();
+
   return (
     <div>
       <nav className="sticky top-0 bg-gray-500 bg-opacity-5  dark:bg-gray-900 z-50">
@@ -27,10 +30,33 @@ function Navbar() {
               <li>Services</li>
               <li>Pricing</li>
               <li>Contact</li>
+              {isAuthenticated && (
+                <div>
+                  <p>{user.email.split("@")[0]}</p>
+                </div>
+              )}
+              {isAuthenticated ? (
+                <li>
+                  <button
+                    onClick={() =>
+                      logout({
+                        logoutParams: { returnTo: window.location.origin },
+                      })
+                    }
+                  >
+                    Log Out
+                  </button>
+                </li>
+              ) : (
+                <li>
+                  <button onClick={() => loginWithRedirect()}>Log In</button>
+                </li>
+              )}
             </ul>
           </div>
         </div>
       </nav>
+
       <BodyContent />
     </div>
   );
