@@ -68,7 +68,7 @@ function DisplayCars({
               onClick={handleMoreDetailsClick}
               className="button mt-5 ml-20 bg-blue-500 hover:bg-blue-700 text-white shadow-xl px-8 py-2 rounded-md"
             >
-              More Details
+              {expanded ? "Close Details" : "More Details"}
             </button>
           </div>
         </div>
