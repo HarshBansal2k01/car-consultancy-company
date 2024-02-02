@@ -6,7 +6,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 function CarSelectionInput() {
   const [carType, setCarType] = useState("");
   const [carBrand, setCarBrand] = useState("");
-  const [price, setPrice] = useState(0);
   const [transmissionType, setTransmissionType] = useState("");
   const [fuelType, setFuelType] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
@@ -15,17 +14,30 @@ function CarSelectionInput() {
   const [logInNotify, setLogInNotify] = useState(false);
   const [formNotify, setFormNotify] = useState(false);
   const displayCarsRef = useRef(null);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(0);
 
+  const handleMinPriceChange = (event) => {
+    const newMinPrice = parseInt(event.target.value, 10);
+    if (newMinPrice <= maxPrice) {
+      setMinPrice(newMinPrice);
+    }
+  };
+
+  const handleMaxPriceChange = (event) => {
+    const newMaxPrice = parseInt(event.target.value, 10);
+    if (newMaxPrice >= minPrice) {
+      setMaxPrice(newMaxPrice);
+    }
+  };
+
+  // we will make get function and pass the values in props
   const handleCarTypeClick = (selectedCarType) => {
     setCarType(selectedCarType);
   };
 
   const handleCarBrandChange = (event) => {
     setCarBrand(event.target.value);
-  };
-
-  const handlePriceChange = (event) => {
-    setPrice(parseInt(event.target.value, 10));
   };
 
   const handleTransmissionChange = (event) => {
@@ -41,14 +53,26 @@ function CarSelectionInput() {
 
     // Perform additional validation if needed
     const isValid =
-      carType && carBrand && price > 0 && transmissionType && fuelType;
+      carType &&
+      carBrand &&
+      maxPrice > 0 &&
+      minPrice >= 0 &&
+      transmissionType &&
+      fuelType;
 
     if (isValid) {
       if (isAuthenticated) {
         setIsFormValid(true);
         setIsSearchClicked(true);
 
-        console.log(carType, carBrand, price, transmissionType, fuelType);
+        console.log(
+          carType,
+          carBrand,
+          minPrice,
+          maxPrice,
+          transmissionType,
+          fuelType
+        );
       } else {
         setIsFormValid(false);
         loginWithRedirect();
@@ -214,23 +238,41 @@ function CarSelectionInput() {
 
           {/* Event handling for price slider */}
           <div className="mb-4">
-            <label className="block text-sm font-medium  text-white mb-2">
+            <label className="block text-sm font-medium text-white mb-2">
               Select Price Range
             </label>
-            <input
-              type="range"
-              value={price}
-              onChange={handlePriceChange}
-              className="w-full"
-              min={0}
-              max={10000000}
-            />
+            <div className="flex">
+              <label htmlFor="maxPrice" className="text-white">
+                Min
+              </label>
+              <input
+             
+                type="range"
+                value={minPrice}
+                onChange={handleMinPriceChange}
+                className="w-full mr-2 ml-2"
+                min={300000}
+                max={maxPrice}
+              />
+              <label htmlFor="maxPrice" className="text-white">
+                Max
+              </label>
+              <input
+                type="range"
+                value={maxPrice}
+                onChange={handleMaxPriceChange}
+                className="w-full ml-2"
+                min={300000}
+                max={10000000}
+              />
+            </div>
+            <div className="flex"></div>
             <div className="text-white text-center mt-2">
-              Price: ₹{price.toLocaleString("en-IN")}
+              Price Range: ₹{minPrice.toLocaleString("en-IN")} - ₹
+              {maxPrice.toLocaleString("en-IN")}
             </div>
           </div>
 
-          {/* Event handling for transmission dropdown */}
           <div className="mb-4">
             <label
               htmlFor="transmission"
@@ -321,19 +363,20 @@ function CarSelectionInput() {
             </button>
           </div>
         </form>
-        {isSearchClicked && isFormValid && (
-          <div ref={displayCarsRef} className="mt-12">
-            <DisplayCars
-              carType={carType}
-              carBrand={carBrand}
-              fuelType={fuelType}
-              transmissionType={transmissionType}
-              price={price}
-              onReset={handleReset}
-            />
-          </div>
-        )}
       </div>
+      {isSearchClicked && isFormValid && (
+        <div ref={displayCarsRef} className="mt-12">
+          <DisplayCars
+            carType={carType}
+            carBrand={carBrand}
+            fuelType={fuelType}
+            transmissionType={transmissionType}
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+            onReset={handleReset}
+          />
+        </div>
+      )}
     </>
   );
 }
