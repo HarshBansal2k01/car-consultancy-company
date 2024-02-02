@@ -15,7 +15,7 @@ function CarSelectionInput() {
   const [formNotify, setFormNotify] = useState(false);
   const displayCarsRef = useRef(null);
   const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(10000000);
 
   const handleMinPriceChange = (event) => {
     const newMinPrice = parseInt(event.target.value, 10);
