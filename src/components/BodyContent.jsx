@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import mustang from "../images/mustang.jpg";
 import "./BodyContent.css";
 import CarSelectionInput from "./CarSelectionInput";
-import { useAuth0 } from "@auth0/auth0-react";
 
 function BodyContent() {
   const [fadeIn, setFadeIn] = useState(false);
