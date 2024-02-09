@@ -3,7 +3,7 @@ import "./CarSelectionInput.css";
 import DisplayCars from "./DisplayCars";
 import { useAuth0 } from "@auth0/auth0-react";
 
-function CarSelectionInput() {
+function  CarSelectionInput() {
   const [carType, setCarType] = useState("");
   const [carBrand, setCarBrand] = useState("");
   const [transmissionType, setTransmissionType] = useState("");
