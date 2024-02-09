@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import mustang from "../images/mustang.jpg";
+import DropDownDetails from "./DropDownDetails";
+
+import "./DropDownDetails.css";
 
 function DisplayCars({
   carType,
@@ -10,14 +13,22 @@ function DisplayCars({
   minPrice,
   onReset,
 }) {
+  const [expanded, setExpanded] = useState(false);
+
   const handleResetClick = () => {
     if (onReset) {
       onReset();
     }
   };
+
+  const handleMoreDetailsClick = () => {
+    setExpanded(!expanded);
+  };
+
   const formatIndianNumber = (number) => {
     return number.toLocaleString("en-IN");
   };
+
   return (
     <div className="max-w-full mt-4 p-20">
       <div className="flex flex-col mb-10 justify-center min-h-screen relative overflow-hidden">
@@ -53,13 +64,25 @@ function DisplayCars({
             </div>
           </div>
           <div className="mt-20 ml-60">
-            <button className="button mt-5 ml-20 bg-blue-500 hover:bg-blue-700 text-white shadow-md px-8 py-2 rounded-md">
-              More Details
+            <button
+              onClick={handleMoreDetailsClick}
+              className="button mt-5 ml-20 bg-blue-500 hover:bg-blue-700 text-white shadow-xl px-8 py-2 rounded-md"
+            >
+              {expanded ? "Close Details" : "More Details"}
             </button>
           </div>
         </div>
 
- 
+        {expanded && (
+          <div
+            className={`mt-[-10px] z-[-1] ${
+              expanded ? "dropdown-details" : ""
+            }`}
+          >
+            <DropDownDetails />
+          </div>
+        )}
+
         <button
           onClick={handleResetClick}
           className="mt-2 button justify-start bg-blue-500 hover:bg-blue-700 text-white shadow-md px-4 py-2 rounded-md"
