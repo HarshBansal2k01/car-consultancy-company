@@ -3,7 +3,7 @@ import "./CarSelectionInput.css";
 import DisplayCars from "./DisplayCars";
 import { useAuth0 } from "@auth0/auth0-react";
 
-function CarSelectionInput() {
+function  CarSelectionInput() {
   const [carType, setCarType] = useState("");
   const [carBrand, setCarBrand] = useState("");
   const [transmissionType, setTransmissionType] = useState("");
@@ -15,7 +15,7 @@ function CarSelectionInput() {
   const [formNotify, setFormNotify] = useState(false);
   const displayCarsRef = useRef(null);
   const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(10000000);
 
   const handleMinPriceChange = (event) => {
     const newMinPrice = parseInt(event.target.value, 10);
