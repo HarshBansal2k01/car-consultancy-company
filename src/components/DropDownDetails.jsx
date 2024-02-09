@@ -2,8 +2,7 @@ import React from "react";
 import mustang from "../images/mustang.jpg";
 import "./DropDownDetails.css";
 
-function DropDownDetails({ setClose, close }) {
-
+function DropDownDetails() {
   return (
     <div className="relative flex text-gray-700 bg-white shadow-md bg-clip-border rounded-xl border-b-2 drop">
       <div className="max-w-3xl flex flex-row mb-4 items-center ">
@@ -37,7 +36,6 @@ function DropDownDetails({ setClose, close }) {
           </p>
         </div>
       </div>
-
     </div>
   );
 }

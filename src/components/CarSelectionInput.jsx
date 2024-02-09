@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import "./CarSelectionInput.css";
 import DisplayCars from "./DisplayCars";
 import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
 
-function  CarSelectionInput() {
+function CarSelectionInput() {
   const [carType, setCarType] = useState("");
   const [carBrand, setCarBrand] = useState("");
   const [transmissionType, setTransmissionType] = useState("");
@@ -14,8 +15,33 @@ function  CarSelectionInput() {
   const [logInNotify, setLogInNotify] = useState(false);
   const [formNotify, setFormNotify] = useState(false);
   const displayCarsRef = useRef(null);
-  const [minPrice, setMinPrice] = useState(0);
+  const [minPrice, setMinPrice] = useState(300000);
   const [maxPrice, setMaxPrice] = useState(10000000);
+
+  //fetching basicdetails
+
+  const [basicDetails, setBasicDetails] = useState([]);
+  const [filteredCars, setFilteredCars] = useState([]);
+
+  useEffect(() => {
+    const fetchBasicDetails = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/basicdetails");
+        setBasicDetails(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching basic details:", error);
+        // Handle error if needed
+      }
+    };
+
+    fetchBasicDetails();
+
+    // Cleanup function
+    return () => {
+      // Cleanup if needed
+    };
+  }, []);
 
   const handleMinPriceChange = (event) => {
     const newMinPrice = parseInt(event.target.value, 10);
@@ -64,7 +90,21 @@ function  CarSelectionInput() {
       if (isAuthenticated) {
         setIsFormValid(true);
         setIsSearchClicked(true);
+        const filtered = basicDetails.filter((car) => {
+          const carPrice = parseInt(car.price.replace(/,/g, ""), 10);
 
+          return (
+            car.type === carType &&
+            car.brand === carBrand &&
+            car.transmission === transmissionType &&
+            car.fuel === fuelType &&
+            carPrice >= minPrice &&
+            carPrice <= maxPrice
+          );
+        });
+        console.log("filter", filtered)
+        // Pass filtered data to DisplayCars component
+        setFilteredCars(filtered);
         console.log(
           carType,
           carBrand,
@@ -186,9 +226,9 @@ function  CarSelectionInput() {
               </button>
               <button
                 type="button"
-                onClick={() => handleCarTypeClick("HATCHBACK")}
+                onClick={() => handleCarTypeClick("Hatch Back")}
                 className={`flex-1 mr-2 ${
-                  carType === "HATCHBACK"
+                  carType === "Hatch Back"
                     ? "bg-gradient-to-r from-red-800 to-black-500"
                     : "bg-gradient-to-r from-blue-700 to-black-400"
                 } text-white py-2 px-4 rounded-md focus:outline-none focus:shadow-outline-blue`}
@@ -229,7 +269,7 @@ function  CarSelectionInput() {
                 Select Car Brand
               </option>
 
-              <option>Toyota</option>
+              <option>Maruti Suzuki</option>
               <option>Honda</option>
               <option>Ford</option>
               <option>Chevrolet</option>
@@ -246,7 +286,6 @@ function  CarSelectionInput() {
                 Min
               </label>
               <input
-             
                 type="range"
                 value={minPrice}
                 onChange={handleMinPriceChange}
@@ -291,11 +330,11 @@ function  CarSelectionInput() {
                 Select Car Brand
               </option>
 
-              <option>Manual transmission (MT)</option>
-              <option>Automatic transmission (AT)</option>
-              <option>Continuously Variable transmission (CVT)</option>
-              <option>Semi-Automatic transmission (SAT)</option>
-              <option>Dual Clutch transmission (DCT)</option>
+              <option>Manual (MT)</option>
+              <option>Automatic (AMT)</option>
+              <option>Continuously Variable (CVT)</option>
+              <option>Semi-Automatic (SAT)</option>
+              <option>Dual Clutch (DCT)</option>
             </select>
           </div>
 
@@ -307,9 +346,9 @@ function  CarSelectionInput() {
             <div className="flex">
               <button
                 type="button"
-                onClick={() => handleFuelTypeClick("DIESEL")}
+                onClick={() => handleFuelTypeClick("Diesel")}
                 className={`flex-1 mr-2 ${
-                  fuelType === "DIESEL"
+                  fuelType === "Diesel"
                     ? "bg-gradient-to-r from-green-800 to-black-500"
                     : "bg-gradient-to-r from-yellow-700 to-black-400"
                 } text-white py-2 px-4 rounded-md focus:outline-none focus:shadow-outline-green`}
@@ -318,9 +357,9 @@ function  CarSelectionInput() {
               </button>
               <button
                 type="button"
-                onClick={() => handleFuelTypeClick("PETROL")}
+                onClick={() => handleFuelTypeClick("Petrol")}
                 className={`flex-1 mr-2 ${
-                  fuelType === "PETROL"
+                  fuelType === "Petrol"
                     ? "bg-gradient-to-r from-green-800 to-black-500"
                     : "bg-gradient-to-r from-yellow-700 to-black-400"
                 } text-white py-2 px-4 rounded-md focus:outline-none focus:shadow-outline-green`}
@@ -329,9 +368,9 @@ function  CarSelectionInput() {
               </button>
               <button
                 type="button"
-                onClick={() => handleFuelTypeClick("HYBRID")}
+                onClick={() => handleFuelTypeClick("Hybrid")}
                 className={`flex-1 mr-2 ${
-                  fuelType === "HYBRID"
+                  fuelType === "Hybrid"
                     ? "bg-gradient-to-r from-green-800 to-black-500"
                     : "bg-gradient-to-r from-yellow-700 to-black-400"
                 } text-white py-2 px-4 rounded-md focus:outline-none focus:shadow-outline-green`}
@@ -349,7 +388,20 @@ function  CarSelectionInput() {
               >
                 EV
               </button>
-              {/* Repeat similar buttons for PETROL, HYBRID, ELECTRIC */}
+              <button
+                type="button"
+                onClick={() => handleFuelTypeClick("CNG")}
+                className={`flex-1 ${
+                  fuelType === "CNG"
+                    ? "bg-gradient-to-r from-green-800 to-black-500"
+                    : "bg-gradient-to-r from-yellow-700 to-black-400"
+                } text-white py-2 px-4 rounded-md focus:outline-none focus:shadow-outline-green`}
+              >
+                CNG
+              </button>
+
+              {/* Repea
+                t similar buttons for PETROL, HYBRID, ELECTRIC */}
             </div>
           </div>
 
@@ -374,6 +426,8 @@ function  CarSelectionInput() {
             minPrice={minPrice}
             maxPrice={maxPrice}
             onReset={handleReset}
+            basicDetails={basicDetails}
+            filteredCars={filteredCars}
           />
         </div>
       )}
