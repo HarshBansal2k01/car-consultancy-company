@@ -8,7 +8,7 @@ function BodyContent() {
   const [fadeIn, setFadeIn] = useState(false);
   const carSelectionRef = useRef(null);
 
-
+// checking
   useEffect(() => {
     const handleScroll = () => {
       setFadeIn(window.scrollY > 0);
