@@ -1,5 +1,4 @@
 import React from "react";
-import BodyContent from "./BodyContent";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function Navbar() {
@@ -56,8 +55,6 @@ function Navbar() {
           </div>
         </div>
       </nav>
-
-      <BodyContent />
     </div>
   );
 }

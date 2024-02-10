@@ -102,7 +102,7 @@ function CarSelectionInput() {
             carPrice <= maxPrice
           );
         });
-        console.log("filter", filtered)
+     
         // Pass filtered data to DisplayCars component
         setFilteredCars(filtered);
         console.log(

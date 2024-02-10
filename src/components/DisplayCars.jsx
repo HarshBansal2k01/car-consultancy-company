@@ -1,43 +1,34 @@
-import React, { useState } from "react";
-import mustang from "../images/mustang.jpg";
-import DropDownDetails from "./DropDownDetails";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import "./DropDownDetails.css";
 
-function DisplayCars({
-  carType,
-  carBrand,
-  fuelType,
-  transmissionType,
-  maxPrice,
-  minPrice,
-  onReset,
-  basicDetails,
-  filteredCars,
-}) {
-  const [expandedCarId, setExpandedCarId] = useState(null);
-
+function DisplayCars({ onReset, basicDetails, filteredCars }) {
+  const navigate = useNavigate();
   const handleResetClick = () => {
     if (onReset) {
       onReset();
     }
   };
 
-  const handleMoreDetailsClick = (carId) => {
-    setExpandedCarId(expandedCarId === carId ? null : carId);
+  console.log(filteredCars);
+  console.log(filteredCars[0].image_url);
+  const handleMoreDetailsClick = (carId, variant,name) => {
+    navigate(`/moredetails?id=${carId}&variant=${variant}&name=${name}`);
+    console.log("variant->", name);
   };
 
   return (
     <div className="max-w-full mt-4 p-20">
       <div className="flex flex-col mb-10 justify-center min-h-screen relative overflow-hidden">
-        {filteredCars.map((car) => (
+        {filteredCars.map((car, index) => (
           <div
             key={car.id}
             className="relative flex text-gray-700 bg-white shadow-md bg-clip-border rounded-xl border-b-2 mb-4"
           >
             <div className="max-w-3xl flex flex-row mb-4 items-center">
               <img
-                src={mustang}
+                src={car.image_url}
                 alt=""
                 className="w-80 h-60 object-cover mr-5 ml-2 mt-4"
               />
@@ -67,19 +58,15 @@ function DisplayCars({
             </div>
             <div className="mt-20 ml-60">
               <button
-                onClick={() => handleMoreDetailsClick(car.id)}
+                onClick={() => handleMoreDetailsClick(car.id, car.variant,car.name)}
                 className="button mt-5 ml-20 bg-blue-500 hover:bg-blue-700 text-white shadow-xl px-8 py-2 rounded-md"
               >
-                {expandedCarId === car.id ? "Close Details" : "More Details"}
+                More Details
               </button>
             </div>
-            {expandedCarId === car.id && (
-              <div className="dropdown-details">
-                <DropDownDetails basicDetails={basicDetails} />
-              </div>
-            )}
           </div>
         ))}
+
         <button
           onClick={handleResetClick}
           className="mt-2 button justify-start bg-blue-500 hover:bg-blue-700 text-white shadow-md px-4 py-2 rounded-md"
