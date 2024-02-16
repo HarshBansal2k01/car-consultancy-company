@@ -2,8 +2,6 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import BodyContent from "./components/BodyContent";
-import DropDownDetails from "./components/DropDownDetails";
-
 
 function App() {
   return (
@@ -20,8 +18,7 @@ function App() {
           style={{ zIndex: -1 }}
         ></div>
         <Navbar />
-        <BodyContent/>
-
+        <BodyContent />
       </div>
     </Auth0Provider>
   );

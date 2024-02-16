@@ -5,15 +5,16 @@ import "./DropDownDetails.css";
 
 function DisplayCars({ onReset, basicDetails, filteredCars }) {
   const navigate = useNavigate();
+
   const handleResetClick = () => {
     if (onReset) {
       onReset();
     }
   };
 
-  console.log(filteredCars);
-  console.log(filteredCars[0].image_url);
-  const handleMoreDetailsClick = (carId, variant,name) => {
+  console.log(filteredCars)
+
+  const handleMoreDetailsClick = (carId, variant, name) => {
     navigate(`/moredetails?id=${carId}&variant=${variant}&name=${name}`);
     console.log("variant->", name);
   };
@@ -27,11 +28,14 @@ function DisplayCars({ onReset, basicDetails, filteredCars }) {
             className="relative flex text-gray-700 bg-white shadow-md bg-clip-border rounded-xl border-b-2 mb-4"
           >
             <div className="max-w-3xl flex flex-row mb-4 items-center">
-              <img
-                src={car.image_url}
-                alt=""
-                className="w-80 h-60 object-cover mr-5 ml-2 mt-4"
-              />
+              {/* Check if image_url is not null before rendering */}
+              {car.image_url && (
+                <img
+                  src={`data:image/jpeg;base64,${arrayBufferToBase64(car.image_url)}`}
+                  alt=""
+                  className="w-80 h-60 object-cover mr-5 ml-2 mt-4"
+                />
+              )}
               <div className="flex-grow">
                 <h2 className="text-xl font-semibold mb-2 mt-4">{car.name}</h2>
                 <p className="text-gray-600 ">
@@ -58,7 +62,9 @@ function DisplayCars({ onReset, basicDetails, filteredCars }) {
             </div>
             <div className="mt-20 ml-60">
               <button
-                onClick={() => handleMoreDetailsClick(car.id, car.variant,car.name)}
+                onClick={() =>
+                  handleMoreDetailsClick(car.id, car.variant, car.name)
+                }
                 className="button mt-5 ml-20 bg-blue-500 hover:bg-blue-700 text-white shadow-xl px-8 py-2 rounded-md"
               >
                 More Details
@@ -76,6 +82,15 @@ function DisplayCars({ onReset, basicDetails, filteredCars }) {
       </div>
     </div>
   );
+}
+
+function arrayBufferToBase64(buffer) {
+  let binary = '';
+  const bytes = new Uint8Array(buffer);
+  for (let i = 0; i < bytes.length; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
 }
 
 export default DisplayCars;
