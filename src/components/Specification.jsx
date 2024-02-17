@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Specification.css";
 import axios from "axios";
 
-function Specification({ showSpecification }) {
+function Specification({ showSpecification, variant }) {
   const [completeSpecification, setCompleteSpecification] = useState([]);
 
   useEffect(() => {
@@ -11,7 +11,11 @@ function Specification({ showSpecification }) {
         const response = await axios.get(
           "http://localhost:8080/completedetails"
         );
-        setCompleteSpecification(response.data);
+        const filteredSpecification = response.data.filter(
+          (spec) => spec.variant === variant
+        );
+
+        setCompleteSpecification(filteredSpecification);
         console.log(response.data);
       } catch (error) {
         console.error("Error fetching basic details:", error);
@@ -20,7 +24,7 @@ function Specification({ showSpecification }) {
     };
 
     fetchSpecificationDetails();
-  }, []);
+  }, [variant]);
 
   return (
     <div

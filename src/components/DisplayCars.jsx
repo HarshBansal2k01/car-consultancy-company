@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./DropDownDetails.css";
 
 function DisplayCars({ onReset, basicDetails, filteredCars }) {
   const navigate = useNavigate();
+  const [cars, setCars] = useState([]);
+  const [storedFilteredCars, setStoredFilteredCars] = useState([]);
+  useEffect(() => {
+    // Retrieve filtered cars from local storage
+    setStoredFilteredCars(JSON.parse(localStorage.getItem("filteredCars")));
+
+    // Update state with filtered cars
+    if (storedFilteredCars && storedFilteredCars.length > 0) {
+      setCars(storedFilteredCars);
+    }
+  }, [storedFilteredCars]);
+
+
 
   const handleResetClick = () => {
     if (onReset) {
@@ -12,7 +25,7 @@ function DisplayCars({ onReset, basicDetails, filteredCars }) {
     }
   };
 
-  console.log(filteredCars)
+  console.log(filteredCars);
 
   const handleMoreDetailsClick = (carId, variant, name) => {
     navigate(`/moredetails?id=${carId}&variant=${variant}&name=${name}`);
@@ -22,16 +35,17 @@ function DisplayCars({ onReset, basicDetails, filteredCars }) {
   return (
     <div className="max-w-full mt-4 p-20">
       <div className="flex flex-col mb-10 justify-center min-h-screen relative overflow-hidden">
-        {filteredCars.map((car, index) => (
+        {cars.map((car, index) => (
           <div
             key={car.id}
             className="relative flex text-gray-700 bg-white shadow-md bg-clip-border rounded-xl border-b-2 mb-4"
           >
             <div className="max-w-3xl flex flex-row mb-4 items-center">
-              {/* Check if image_url is not null before rendering */}
               {car.image_url && (
                 <img
-                  src={`data:image/jpeg;base64,${arrayBufferToBase64(car.image_url)}`}
+                  src={`data:image/jpeg;base64,${arrayBufferToBase64(
+                    car.image_url
+                  )}`}
                   alt=""
                   className="w-80 h-60 object-cover mr-5 ml-2 mt-4"
                 />
@@ -85,7 +99,7 @@ function DisplayCars({ onReset, basicDetails, filteredCars }) {
 }
 
 function arrayBufferToBase64(buffer) {
-  let binary = '';
+  let binary = "";
   const bytes = new Uint8Array(buffer);
   for (let i = 0; i < bytes.length; i++) {
     binary += String.fromCharCode(bytes[i]);

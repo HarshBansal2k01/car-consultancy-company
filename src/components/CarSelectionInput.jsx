@@ -9,14 +9,19 @@ function CarSelectionInput() {
   const [carBrand, setCarBrand] = useState("");
   const [transmissionType, setTransmissionType] = useState("");
   const [fuelType, setFuelType] = useState("");
-  const [isFormValid, setIsFormValid] = useState(false);
-  const [isSearchClicked, setIsSearchClicked] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(
+    JSON.parse(localStorage.getItem("isFormValid")) || false
+  );
+  const [isSearchClicked, setIsSearchClicked] = useState(
+    JSON.parse(localStorage.getItem("isSearchClicked")) || false
+  );
   const { isAuthenticated, loginWithRedirect } = useAuth0();
   const [logInNotify, setLogInNotify] = useState(false);
   const [formNotify, setFormNotify] = useState(false);
   const displayCarsRef = useRef(null);
   const [minPrice, setMinPrice] = useState(300000);
   const [maxPrice, setMaxPrice] = useState(10000000);
+  const [noCarsNotify, setNoCarsNotify] = useState(false);
 
   //fetching basicdetails
 
@@ -41,6 +46,16 @@ function CarSelectionInput() {
     return () => {
       // Cleanup if needed
     };
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("isFormValid", JSON.stringify(isFormValid));
+    localStorage.setItem("isSearchClicked", JSON.stringify(isSearchClicked));
+  }, [isFormValid, isSearchClicked]);
+
+  useEffect(() => {
+    // Clear isFormValid and isSearchClicked from local storage on component mount
+    localStorage.removeItem("isFormValid");
+    localStorage.removeItem("isSearchClicked");
   }, []);
 
   const handleMinPriceChange = (event) => {
@@ -102,9 +117,17 @@ function CarSelectionInput() {
             carPrice <= maxPrice
           );
         });
-     
+
+        if (filtered.length === 0) {
+          setNoCarsNotify(true);
+          setIsFormValid(false);
+        } else {
+          setFilteredCars(filtered);
+          setNoCarsNotify(false);
+          localStorage.setItem("filteredCars", JSON.stringify(filtered));
+
+        }
         // Pass filtered data to DisplayCars component
-        setFilteredCars(filtered);
         console.log(
           carType,
           carBrand,
@@ -180,6 +203,32 @@ function CarSelectionInput() {
             >
               <strong className="font-bold">Hey Gearhead! </strong>
               <span className="block sm:inline">Please fill the inputs</span>
+              <span
+                className="absolute top-0 bottom-0 right-0 px-4 py-3"
+                onClick={handleCloseClick}
+                role="button"
+              >
+                <svg
+                  className="fill-current h-6 w-6 text-red-500"
+                  role="button"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <title>Close</title>
+                  <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                </svg>
+              </span>
+            </div>
+          )}
+          {noCarsNotify && (
+            <div
+              className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-5"
+              role="alert"
+            >
+              <strong className="font-bold">Hey Gearhead! </strong>
+              <span className="block sm:inline">
+                No Cars available for this filter
+              </span>
               <span
                 className="absolute top-0 bottom-0 right-0 px-4 py-3"
                 onClick={handleCloseClick}

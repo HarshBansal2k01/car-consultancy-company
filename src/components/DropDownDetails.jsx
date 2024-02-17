@@ -27,7 +27,7 @@ function DropDownDetails() {
     // Show Specification component after 3 seconds
     const timer = setTimeout(() => {
       setShowSpecification(true);
-    }, 3000);
+    }, 2000);
 
     // Cleanup function
     return () => {
@@ -133,7 +133,7 @@ function DropDownDetails() {
         </div>
       </div>
       {showSpecification && (
-        <Specification showSpecification={showSpecification} />
+        <Specification showSpecification={showSpecification} variant={variant} />
       )}
     </>
   );
