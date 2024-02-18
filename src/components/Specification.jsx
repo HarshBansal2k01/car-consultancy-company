@@ -31,80 +31,118 @@ function Specification({ showSpecification, variant }) {
       className={`specification-container ${
         !showSpecification && "hidden"
       }  rounded-lg `}
-      style={{ marginTop: "-20px" }}
+      style={{ marginTop: "10px" }}
     >
-      <div className="bg-white rounded-lg  p-6 space-y-4">
+      <div className="bg-white rounded-lg  p-6 space-y-4 ">
         {completeSpecification.map((spec, index) => (
-          <div key={index}>
-            <h2 className="text-xl font-bold">Engine & Transmission</h2>
-            <p>
-              Power Steering: <span>{spec.Engine_Type}</span>
-            </p>
-            <p>
-              Power Steering: <span>{spec.Displacement}</span>
-            </p>
-            <p>
-              Power Steering: <span>{spec.Max_Power}</span>
-            </p>
-            <p>
-              Power Steering: <span>{spec.Max_Torque}</span>
-            </p>
-            <p>
-              Power Steering: <span>{spec.No_of_Cylinders}</span>
-            </p>
-            <p>
-              Power Steering: <span>{spec.Valves_Per_Cylinder}</span>
-            </p>
-            <p>
-              Power Steering: <span>{spec.Transmission_Type}</span>
-            </p>
-            <p>
-              Power Steering: <span>{spec.Gear_Box}</span>
-            </p>
-            <p>
-              Power Steering: <span>{spec.Mild_Hybrid}</span>
-            </p>
-            <p>
-              Power Steering: <span>{spec.Drive_Type}</span>
-            </p>
-            <h2 className="text-xl font-bold">Fuel & Performance</h2>
-            <p>
-              Power Steering: <span>{spec.Fuel_Type}</span>
-            </p>
-            <p>
-              Power Steering: <span>{spec.Petrol_Mileage_ARAI}</span>
-            </p>
-            <p>
-              Power Steering: <span>{spec.Petrol_Fuel_Tank_Capacity}</span>
-            </p>
-            <p>
-              Power Steering: <span>{spec.Emission_Norm_Compliance}</span>
-            </p>
-            <p>
-              Power Steering: <span>{spec.Top_Speed}</span>
-            </p>
-            <h2 className="text-xl font-bold">Suspension, Steering & Brakes</h2>
-            <p>
-              Power Steering: <span>{spec.Front_Suspension}</span>
-            </p>
-            <p>
-              Power Steering: <span>{spec.Rear_Suspension}</span>
-            </p>
-            <p>
-              Power Steering: <span>{spec.Steering_Type}</span>
-            </p>
-            <p>
-              Power Steering: <span>{spec.Steering_Column}</span>
-            </p>
-            <p>
-              Power Steering: <span>{spec.Turning_Radius}</span>
-            </p>
-            <p>
-              Power Steering: <span>{spec.Front_Brake_Type}</span>
-            </p>
-            <p>
-              Power Steering: <span>{spec.Rear_Brake_Type}</span>
-            </p>
+          <div key={index} className="grid grid-cols-6 gap-1">
+            <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                Fuel & Performance
+              </h5>
+              <p className="font-normal text-gray-700 dark:text-gray-400">
+                <p>
+                  Power Steering: <span>{spec.Fuel_Type}</span>
+                </p>
+                <p>
+                  Power Steering: <span>{spec.Petrol_Mileage_ARAI}</span>
+                </p>
+                <p>
+                  Power Steering: <span>{spec.Petrol_Fuel_Tank_Capacity}</span>
+                </p>
+                <p>
+                  Power Steering: <span>{spec.Emission_Norm_Compliance}</span>
+                </p>
+                <p>
+                  Power Steering: <span>{spec.Top_Speed}</span>
+                </p>
+              </p>
+            </div>
+
+            <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                Noteworthy technology acquisitions 2021
+              </h5>
+              <p className="font-normal text-gray-700 dark:text-gray-400">
+                Here are the biggest enterprise technology acquisitions of 2021
+                so far, in reverse chronological order.
+              </p>
+            </div>
+
+            <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                Noteworthy technology acquisitions 2021
+              </h5>
+              <p className="font-normal text-gray-700 dark:text-gray-400">
+                Here are the biggest enterprise technology acquisitions of 2021
+                so far, in reverse chronological order.
+              </p>
+            </div>
+            <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                Noteworthy technology acquisitions 2021
+              </h5>
+              <p className="font-normal text-gray-700 dark:text-gray-400">
+                Here are the biggest enterprise technology acquisitions of 2021
+                so far, in reverse chronological order.
+              </p>
+            </div>
+            <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                Noteworthy technology acquisitions 2021
+              </h5>
+              <p className="font-normal text-gray-700 dark:text-gray-400">
+                Here are the biggest enterprise technology acquisitions of 2021
+                so far, in reverse chronological order.
+              </p>
+            </div>
+            <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                Noteworthy technology acquisitions 2021
+              </h5>
+              <p className="font-normal text-gray-700 dark:text-gray-400">
+                Here are the biggest enterprise technology acquisitions of 2021
+                so far, in reverse chronological order.
+              </p>
+            </div>
+            <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                Noteworthy technology acquisitions 2021
+              </h5>
+              <p className="font-normal text-gray-700 dark:text-gray-400">
+                Here are the biggest enterprise technology acquisitions of 2021
+                so far, in reverse chronological order.
+              </p>
+            </div>
+            <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                Suspension, Steering & Brakes{" "}
+              </h5>
+              <p className="font-normal text-gray-700 dark:text-gray-400">
+                <p>
+                  Power Steering: <span>{spec.Front_Suspension}</span>
+                </p>
+                <p>
+                  Power Steering: <span>{spec.Rear_Suspension}</span>
+                </p>
+                <p>
+                  Power Steering: <span>{spec.Steering_Type}</span>
+                </p>
+                <p>
+                  Power Steering: <span>{spec.Steering_Column}</span>
+                </p>
+                <p>
+                  Power Steering: <span>{spec.Turning_Radius}</span>
+                </p>
+                <p>
+                  Power Steering: <span>{spec.Front_Brake_Type}</span>
+                </p>
+                <p>
+                  Power Steering: <span>{spec.Rear_Brake_Type}</span>
+                </p>
+              </p>
+            </div>
+
             <h2 className="text-xl font-bold">Dimensions & Capacity</h2>
             <p>
               Power Steering: <span>{spec.Length}</span>
@@ -136,6 +174,7 @@ function Specification({ showSpecification, variant }) {
             <p>
               Power Steering: <span>{spec.No_of_Doors}</span>
             </p>
+
             <h2 className="text-xl font-bold">Comfort & Convenience</h2>
             <p>
               Power Steering: <span>{spec.Power_Steering}</span>
