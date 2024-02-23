@@ -76,6 +76,7 @@ function BodyContent() {
               </svg>
             </button>
           </div>
+          
         </div>
       </div>
       {/* Scroll down to CarSelectionInput */}
