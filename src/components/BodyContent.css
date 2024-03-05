@@ -6,7 +6,12 @@
 /* Initially hide the card */
 .fade-in:not(.visible) {
   opacity: 0;
-  
 }
 
+.btn {
+  background-color: #073b4c;
+}
 
+.btn:hover {
+  background-color: #118ab2;
+}

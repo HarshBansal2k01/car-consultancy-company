@@ -1,0 +1,7 @@
+fcfcfc :   body color
+073b4c :-  for button navbar second primary color
+fcfcfc :- jet for text color
+118ab2 :- hover
+
+
+

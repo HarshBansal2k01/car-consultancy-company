@@ -14,7 +14,7 @@ function App() {
     >
       <div className="App">
         <div
-          className="fixed inset-0 bg-gradient-to-b from-transparent to-gray-900"
+          className="fixed inset-0 bg-gradient-to-b from-off-white to-white-900"
           style={{ zIndex: -1 }}
         ></div>
         <Navbar />
