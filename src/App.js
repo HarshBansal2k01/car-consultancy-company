@@ -1,6 +1,7 @@
 import { Auth0Provider } from "@auth0/auth0-react";
 import "./App.css";
 import Navbar from "./components/Navbar";
+import BodyContent from "./components/BodyContent";
 
 function App() {
   return (
@@ -13,10 +14,11 @@ function App() {
     >
       <div className="App">
         <div
-          className="fixed inset-0 bg-gradient-to-b from-transparent to-gray-900"
+          className="fixed inset-0 bg-gradient-to-b from-off-white to-white-900"
           style={{ zIndex: -1 }}
         ></div>
         <Navbar />
+        <BodyContent />
       </div>
     </Auth0Provider>
   );
